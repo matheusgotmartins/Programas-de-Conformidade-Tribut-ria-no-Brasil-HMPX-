@@ -1,0 +1,2346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HMPX — Programas de Conformidade Tributária | E-book Institucional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bordo:#7a1220;
+    --bordo-dark:#5a0d18;
+    --bordo-light:#a8202f;
+    --gold:#b89968;
+    --ink:#1a1614;
+    --ink-soft:#3d3530;
+    --paper:#f5f0e8;
+    --paper-warm:#ede5d6;
+    --paper-deep:#e2d6bf;
+    --cream:#faf6ee;
+    --line:#d4c7ad;
+    --line-soft:#e8ddc4;
+    --shadow:0 1px 2px rgba(60,40,20,.08), 0 8px 24px rgba(60,40,20,.06);
+    --shadow-deep:0 4px 12px rgba(60,40,20,.12), 0 24px 60px rgba(60,40,20,.10);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter Tight', system-ui, sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.65;
+    font-size:16px;
+    overflow-x:hidden;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(184,153,104,.05) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(122,18,32,.04) 0%, transparent 50%);
+  }
+  /* Subtle paper noise */
+  body::before{
+    content:'';
+    position:fixed;inset:0;
+    pointer-events:none;
+    z-index:1;
+    opacity:.4;
+    mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.4 0 0 0 0 0.3 0 0 0 0 0.2 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  h1,h2,h3,h4{
+    font-family:'Cormorant Garamond', Georgia, serif;
+    font-weight:600;
+    letter-spacing:-.01em;
+    line-height:1.15;
+    color:var(--ink);
+  }
+
+  /* ========== LAYOUT ========== */
+  .layout{
+    display:grid;
+    grid-template-columns:280px 1fr;
+    min-height:100vh;
+    position:relative;
+    z-index:2;
+  }
+
+  /* ========== SIDEBAR ========== */
+  .sidebar{
+    background:linear-gradient(180deg, var(--bordo) 0%, var(--bordo-dark) 100%);
+    color:var(--cream);
+    padding:2.5rem 1.75rem;
+    position:sticky;
+    top:0;
+    height:100vh;
+    overflow-y:auto;
+    border-right:1px solid rgba(0,0,0,.2);
+  }
+  .sidebar::-webkit-scrollbar{width:6px}
+  .sidebar::-webkit-scrollbar-track{background:rgba(0,0,0,.2)}
+  .sidebar::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px}
+
+  .brand{
+    padding-bottom:1.5rem;
+    border-bottom:1px solid rgba(255,255,255,.15);
+    margin-bottom:1.75rem;
+  }
+  .brand-mark{
+    display:inline-grid;
+    grid-template-columns:repeat(4,4px);
+    grid-template-rows:repeat(4,4px);
+    gap:2px;
+    margin-bottom:.75rem;
+  }
+  .brand-mark span{background:var(--cream);border-radius:1px}
+  .brand-mark span:nth-child(4),
+  .brand-mark span:nth-child(7),
+  .brand-mark span:nth-child(10),
+  .brand-mark span:nth-child(13){background:transparent}
+
+  .brand h1{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.75rem;
+    color:var(--cream);
+    font-weight:700;
+    letter-spacing:.02em;
+  }
+  .brand-tag{
+    font-size:.65rem;
+    letter-spacing:.25em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-top:.25rem;
+    font-weight:500;
+  }
+
+  .nav-label{
+    font-size:.6rem;
+    letter-spacing:.3em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin:1.5rem 0 .75rem;
+    font-weight:500;
+  }
+
+  .nav-list{list-style:none}
+  .nav-list li{margin-bottom:.15rem}
+  .nav-list a{
+    display:flex;
+    align-items:flex-start;
+    gap:.65rem;
+    padding:.55rem .75rem;
+    color:rgba(250,246,238,.75);
+    text-decoration:none;
+    font-size:.85rem;
+    border-radius:4px;
+    transition:all .25s ease;
+    position:relative;
+    line-height:1.4;
+  }
+  .nav-list a:hover{
+    color:var(--cream);
+    background:rgba(255,255,255,.06);
+  }
+  .nav-list a.active{
+    color:var(--cream);
+    background:rgba(255,255,255,.08);
+  }
+  .nav-list a.active::before{
+    content:'';
+    position:absolute;
+    left:-1.75rem;
+    top:50%;
+    transform:translateY(-50%);
+    width:3px;
+    height:60%;
+    background:var(--gold);
+  }
+  .nav-num{
+    font-family:'JetBrains Mono', monospace;
+    font-size:.7rem;
+    color:var(--gold);
+    flex-shrink:0;
+    padding-top:1px;
+  }
+
+  /* ========== MAIN CONTENT ========== */
+  .main{
+    padding:0;
+    max-width:100%;
+    overflow-x:hidden;
+  }
+  .container{
+    max-width:920px;
+    margin:0 auto;
+    padding:4rem 4rem;
+  }
+
+  /* ========== COVER ========== */
+  .cover{
+    min-height:100vh;
+    background:
+      linear-gradient(135deg, rgba(122,18,32,.97) 0%, rgba(90,13,24,.95) 100%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='g' width='10' height='10' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 10 0 L 0 0 0 10' fill='none' stroke='%23b89968' stroke-width='0.3'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100' height='100' fill='url(%23g)'/%3E%3C/svg%3E");
+    color:var(--cream);
+    display:flex;
+    align-items:center;
+    padding:4rem;
+    position:relative;
+    overflow:hidden;
+  }
+  .cover::after{
+    content:'';
+    position:absolute;
+    right:-200px;
+    top:-200px;
+    width:600px;
+    height:600px;
+    border:1px solid var(--gold);
+    border-radius:50%;
+    opacity:.15;
+  }
+  .cover::before{
+    content:'';
+    position:absolute;
+    right:-100px;
+    top:-100px;
+    width:400px;
+    height:400px;
+    border:1px solid var(--gold);
+    border-radius:50%;
+    opacity:.2;
+  }
+  .cover-inner{
+    max-width:760px;
+    position:relative;
+    z-index:2;
+  }
+  .cover-eyebrow{
+    font-size:.7rem;
+    letter-spacing:.35em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:1.5rem;
+    font-weight:500;
+    display:flex;
+    align-items:center;
+    gap:1rem;
+  }
+  .cover-eyebrow::before{
+    content:'';
+    width:40px;
+    height:1px;
+    background:var(--gold);
+  }
+  .cover h1{
+    font-size:clamp(2.5rem, 6vw, 4.5rem);
+    color:var(--cream);
+    line-height:1.05;
+    margin-bottom:1.5rem;
+    letter-spacing:-.02em;
+  }
+  .cover h1 em{
+    font-style:italic;
+    color:var(--gold);
+    font-weight:500;
+  }
+  .cover-subtitle{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.4rem;
+    font-style:italic;
+    color:rgba(250,246,238,.85);
+    margin-bottom:3rem;
+    font-weight:400;
+    max-width:600px;
+    line-height:1.4;
+  }
+  .cover-meta{
+    display:flex;
+    gap:3rem;
+    flex-wrap:wrap;
+    padding-top:2rem;
+    border-top:1px solid rgba(184,153,104,.3);
+  }
+  .meta-item{}
+  .meta-label{
+    font-size:.65rem;
+    letter-spacing:.25em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:.4rem;
+  }
+  .meta-value{
+    font-size:.95rem;
+    color:rgba(250,246,238,.9);
+    font-weight:500;
+  }
+  .scroll-cue{
+    position:absolute;
+    bottom:2rem;
+    left:50%;
+    transform:translateX(-50%);
+    color:var(--gold);
+    font-size:.65rem;
+    letter-spacing:.3em;
+    text-transform:uppercase;
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{
+    0%,100%{opacity:.6}
+    50%{opacity:1}
+  }
+
+  /* ========== SECTIONS ========== */
+  section.chapter{
+    padding:6rem 0 4rem;
+    border-bottom:1px solid var(--line-soft);
+  }
+  section.chapter:last-of-type{border-bottom:none}
+
+  .chapter-header{
+    margin-bottom:3rem;
+    position:relative;
+  }
+  .chapter-num{
+    font-family:'JetBrains Mono', monospace;
+    font-size:.75rem;
+    letter-spacing:.2em;
+    color:var(--bordo);
+    margin-bottom:1rem;
+    display:flex;
+    align-items:center;
+    gap:1rem;
+  }
+  .chapter-num::after{
+    content:'';
+    flex:1;
+    height:1px;
+    background:linear-gradient(90deg, var(--bordo) 0%, transparent 100%);
+  }
+  .chapter h2{
+    font-size:clamp(2rem, 4vw, 3rem);
+    color:var(--bordo);
+    margin-bottom:1rem;
+  }
+  .chapter h2 em{
+    font-style:italic;
+    color:var(--ink-soft);
+    font-weight:500;
+  }
+  .chapter-lead{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.35rem;
+    line-height:1.5;
+    color:var(--ink-soft);
+    font-style:italic;
+    max-width:680px;
+    margin-bottom:2rem;
+  }
+
+  /* ========== PROSE ========== */
+  .prose p{
+    margin-bottom:1.25rem;
+    color:var(--ink-soft);
+    font-size:1.02rem;
+  }
+  .prose p:first-of-type::first-letter{
+    font-family:'Cormorant Garamond', serif;
+    font-size:4rem;
+    float:left;
+    line-height:.85;
+    margin:.2rem .75rem .25rem 0;
+    color:var(--bordo);
+    font-weight:600;
+  }
+  .prose strong{color:var(--ink);font-weight:600}
+  .prose h3{
+    font-size:1.6rem;
+    color:var(--bordo);
+    margin:2.5rem 0 1rem;
+    padding-top:1rem;
+    border-top:1px solid var(--line-soft);
+  }
+  .prose h4{
+    font-size:1.2rem;
+    color:var(--ink);
+    margin:1.75rem 0 .75rem;
+    font-weight:600;
+  }
+
+  /* ========== THESIS BOX ========== */
+  .thesis{
+    background:var(--cream);
+    border-left:4px solid var(--bordo);
+    padding:2rem 2.25rem;
+    margin:2.5rem 0;
+    position:relative;
+    box-shadow:var(--shadow);
+  }
+  .thesis::before{
+    content:'"';
+    position:absolute;
+    top:-1rem;
+    left:1.5rem;
+    font-family:'Cormorant Garamond', serif;
+    font-size:5rem;
+    color:var(--bordo);
+    line-height:1;
+    font-weight:700;
+  }
+  .thesis-label{
+    font-size:.7rem;
+    letter-spacing:.25em;
+    text-transform:uppercase;
+    color:var(--bordo);
+    font-weight:600;
+    margin-bottom:.75rem;
+  }
+  .thesis-text{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.25rem;
+    line-height:1.5;
+    color:var(--ink);
+    font-style:italic;
+  }
+
+  /* ========== TIMELINE ========== */
+  .timeline{
+    position:relative;
+    padding-left:0;
+    margin:2rem 0;
+  }
+  .timeline-item{
+    display:grid;
+    grid-template-columns:120px 1fr;
+    gap:2rem;
+    padding:1.5rem 0;
+    border-bottom:1px dashed var(--line);
+    position:relative;
+    transition:all .3s ease;
+  }
+  .timeline-item:hover{
+    background:var(--cream);
+    margin:0 -1.5rem;
+    padding:1.5rem;
+    border-radius:4px;
+    border-bottom:1px dashed transparent;
+  }
+  .timeline-year{
+    font-family:'Cormorant Garamond', serif;
+    font-size:2rem;
+    color:var(--bordo);
+    font-weight:600;
+    line-height:1;
+    position:relative;
+  }
+  .timeline-year::after{
+    content:'';
+    position:absolute;
+    top:50%;
+    right:0;
+    width:8px;
+    height:8px;
+    background:var(--bordo);
+    border-radius:50%;
+    transform:translateY(-50%);
+  }
+  .timeline-content h4{
+    font-family:'Inter Tight', sans-serif;
+    font-size:.95rem;
+    color:var(--ink);
+    font-weight:600;
+    margin-bottom:.35rem;
+  }
+  .timeline-content p{
+    font-size:.9rem;
+    color:var(--ink-soft);
+    margin:0;
+  }
+
+  /* ========== CATEGORY CARDS ========== */
+  .cat-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+    gap:1.25rem;
+    margin:2rem 0;
+  }
+  .cat-card{
+    background:var(--cream);
+    padding:1.5rem;
+    border-radius:6px;
+    border-top:3px solid var(--bordo);
+    box-shadow:var(--shadow);
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .cat-card:hover{
+    transform:translateY(-4px);
+    box-shadow:var(--shadow-deep);
+  }
+  .cat-icon{
+    width:36px;
+    height:36px;
+    background:var(--bordo);
+    color:var(--cream);
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    font-family:'Cormorant Garamond', serif;
+    font-weight:700;
+    font-size:1.1rem;
+    margin-bottom:1rem;
+  }
+  .cat-card h4{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.25rem;
+    color:var(--bordo);
+    margin-bottom:.5rem;
+    font-weight:600;
+  }
+  .cat-card .examples{
+    font-size:.78rem;
+    color:var(--ink);
+    font-weight:500;
+    margin-top:.75rem;
+    padding-top:.75rem;
+    border-top:1px solid var(--line-soft);
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:.02em;
+  }
+  .cat-card p{
+    font-size:.88rem;
+    color:var(--ink-soft);
+    margin:0;
+  }
+
+  /* ========== PROGRAM ACCORDION ========== */
+  .programs-stack{
+    margin:2.5rem 0;
+  }
+  .program{
+    background:var(--cream);
+    border:1px solid var(--line-soft);
+    border-radius:6px;
+    margin-bottom:.75rem;
+    overflow:hidden;
+    transition:box-shadow .3s ease;
+  }
+  .program[open]{
+    box-shadow:var(--shadow-deep);
+    border-color:var(--gold);
+  }
+  .program summary{
+    padding:1.4rem 1.75rem;
+    cursor:pointer;
+    list-style:none;
+    display:grid;
+    grid-template-columns:auto 1fr auto auto;
+    gap:1.25rem;
+    align-items:center;
+    transition:background .2s ease;
+  }
+  .program summary::-webkit-details-marker{display:none}
+  .program summary:hover{background:var(--paper-warm)}
+  .program-code{
+    font-family:'JetBrains Mono', monospace;
+    font-size:.7rem;
+    color:var(--bordo);
+    background:rgba(122,18,32,.08);
+    padding:.25rem .55rem;
+    border-radius:3px;
+    letter-spacing:.05em;
+    font-weight:500;
+  }
+  .program-title{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.35rem;
+    color:var(--ink);
+    font-weight:600;
+  }
+  .program-title .sub{
+    display:block;
+    font-family:'Inter Tight', sans-serif;
+    font-size:.78rem;
+    color:var(--ink-soft);
+    font-weight:400;
+    font-style:normal;
+    margin-top:.15rem;
+  }
+  .badge{
+    font-family:'Inter Tight', sans-serif;
+    font-size:.65rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    padding:.3rem .65rem;
+    border-radius:3px;
+    font-weight:600;
+    white-space:nowrap;
+  }
+  .badge-high{background:#1a5d3a;color:#e8f5e8}
+  .badge-mid{background:#a06c1f;color:#fff5e3}
+  .badge-low{background:#5a5a5a;color:#f0f0f0}
+  .badge-new{background:var(--bordo);color:var(--cream)}
+  .chevron{
+    width:24px;
+    height:24px;
+    color:var(--bordo);
+    transition:transform .3s ease;
+  }
+  .program[open] .chevron{transform:rotate(180deg)}
+  .program-body{
+    padding:0 1.75rem 1.75rem;
+    border-top:1px solid var(--line-soft);
+    background:linear-gradient(180deg, var(--paper-warm) 0%, var(--cream) 60px);
+  }
+  .program-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+    gap:1rem 2rem;
+    margin-top:1.25rem;
+  }
+  .field{
+    padding:.5rem 0;
+    border-bottom:1px dotted var(--line);
+  }
+  .field-label{
+    font-size:.65rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--bordo);
+    font-weight:600;
+    margin-bottom:.3rem;
+    display:block;
+  }
+  .field-value{
+    font-size:.88rem;
+    color:var(--ink-soft);
+    line-height:1.5;
+  }
+  .program-impact{
+    margin-top:1.25rem;
+    padding:1rem 1.25rem;
+    background:rgba(184,153,104,.12);
+    border-left:3px solid var(--gold);
+    border-radius:0 4px 4px 0;
+  }
+  .program-impact .field-label{color:#7a5a1a}
+  .program-impact .field-value{color:var(--ink)}
+
+  /* ========== IMPACT TABLE ========== */
+  .impact-table{
+    width:100%;
+    border-collapse:collapse;
+    margin:2rem 0;
+    background:var(--cream);
+    box-shadow:var(--shadow);
+    border-radius:6px;
+    overflow:hidden;
+    font-size:.9rem;
+  }
+  .impact-table thead{
+    background:var(--bordo);
+    color:var(--cream);
+  }
+  .impact-table th{
+    padding:1rem 1.25rem;
+    text-align:left;
+    font-family:'Inter Tight', sans-serif;
+    font-size:.7rem;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+    font-weight:600;
+  }
+  .impact-table td{
+    padding:1rem 1.25rem;
+    border-bottom:1px solid var(--line-soft);
+    color:var(--ink-soft);
+    vertical-align:top;
+  }
+  .impact-table tr:last-child td{border-bottom:none}
+  .impact-table tr:hover{background:var(--paper-warm)}
+  .impact-table td:first-child{
+    font-weight:600;
+    color:var(--bordo);
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.05rem;
+  }
+
+  /* ========== DEVEDOR ALERT ========== */
+  .alert-box{
+    background:linear-gradient(135deg, #2a1010 0%, #4a1818 100%);
+    color:var(--cream);
+    padding:2rem 2.5rem;
+    border-radius:6px;
+    margin:2.5rem 0;
+    position:relative;
+    overflow:hidden;
+  }
+  .alert-box::before{
+    content:'!';
+    position:absolute;
+    right:-30px;
+    bottom:-80px;
+    font-family:'Cormorant Garamond', serif;
+    font-size:18rem;
+    color:rgba(184,153,104,.1);
+    line-height:1;
+    font-weight:700;
+  }
+  .alert-label{
+    font-size:.7rem;
+    letter-spacing:.3em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:600;
+    margin-bottom:.75rem;
+  }
+  .alert-box h4{
+    font-family:'Cormorant Garamond', serif;
+    color:var(--cream);
+    font-size:1.6rem;
+    margin-bottom:1rem;
+  }
+  .alert-box p{
+    font-size:.95rem;
+    color:rgba(250,246,238,.88);
+    margin-bottom:.75rem;
+    position:relative;
+    z-index:2;
+  }
+  .alert-criteria{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1rem;
+    margin-top:1.5rem;
+    padding-top:1.5rem;
+    border-top:1px solid rgba(184,153,104,.3);
+  }
+  .crit{
+    padding:.5rem 0;
+  }
+  .crit-num{
+    font-family:'Cormorant Garamond', serif;
+    font-size:2.5rem;
+    color:var(--gold);
+    line-height:1;
+    font-weight:600;
+  }
+  .crit-text{
+    font-size:.85rem;
+    color:rgba(250,246,238,.85);
+    margin-top:.4rem;
+  }
+
+  /* ========== JURISPRUDENCE CARDS ========== */
+  .juris-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:1rem;
+    margin:2rem 0;
+  }
+  .juris-card{
+    display:grid;
+    grid-template-columns:200px 1fr;
+    gap:1.5rem;
+    padding:1.5rem;
+    background:var(--cream);
+    border-radius:6px;
+    border-left:3px solid var(--gold);
+    box-shadow:var(--shadow);
+  }
+  .juris-tag{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.05rem;
+    color:var(--bordo);
+    font-weight:600;
+    line-height:1.25;
+  }
+  .juris-tag small{
+    display:block;
+    font-family:'JetBrains Mono', monospace;
+    font-size:.65rem;
+    color:var(--ink-soft);
+    font-weight:400;
+    margin-top:.35rem;
+    letter-spacing:.05em;
+  }
+  .juris-text{
+    font-size:.88rem;
+    color:var(--ink-soft);
+    line-height:1.6;
+  }
+  .juris-text strong{color:var(--ink)}
+
+  /* ========== ROADMAP ========== */
+  .roadmap{
+    margin:2.5rem 0;
+    counter-reset:step;
+  }
+  .step{
+    display:grid;
+    grid-template-columns:80px 1fr;
+    gap:1.5rem;
+    padding:1.5rem 0;
+    border-bottom:1px solid var(--line-soft);
+    counter-increment:step;
+    position:relative;
+  }
+  .step::before{
+    content:counter(step, decimal-leading-zero);
+    font-family:'Cormorant Garamond', serif;
+    font-size:3rem;
+    color:var(--bordo);
+    font-weight:600;
+    line-height:.9;
+    font-style:italic;
+  }
+  .step-content h4{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.4rem;
+    color:var(--ink);
+    margin-bottom:.4rem;
+    font-weight:600;
+  }
+  .step-content p{
+    font-size:.92rem;
+    color:var(--ink-soft);
+    margin:0;
+  }
+
+  /* ========== FOOTER / CTA ========== */
+  .closing{
+    background:linear-gradient(135deg, var(--bordo) 0%, var(--bordo-dark) 100%);
+    color:var(--cream);
+    padding:5rem 4rem;
+    margin-top:4rem;
+    position:relative;
+    overflow:hidden;
+  }
+  .closing::before{
+    content:'';
+    position:absolute;
+    left:-150px;
+    bottom:-150px;
+    width:400px;
+    height:400px;
+    border:1px solid var(--gold);
+    border-radius:50%;
+    opacity:.2;
+  }
+  .closing-inner{
+    max-width:760px;
+    position:relative;
+    z-index:2;
+  }
+  .closing-eyebrow{
+    font-size:.7rem;
+    letter-spacing:.35em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:1.5rem;
+    font-weight:500;
+  }
+  .closing h2{
+    font-family:'Cormorant Garamond', serif;
+    color:var(--cream);
+    font-size:clamp(2rem, 4vw, 3rem);
+    margin-bottom:1.5rem;
+    line-height:1.15;
+  }
+  .closing h2 em{color:var(--gold);font-style:italic;font-weight:500}
+  .closing p{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:1.3rem;
+    color:rgba(250,246,238,.9);
+    margin-bottom:2rem;
+    line-height:1.5;
+  }
+  .closing-deliverables{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:1.5rem;
+    margin:2.5rem 0;
+  }
+  .deliv{
+    padding:1.5rem;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(184,153,104,.3);
+    border-radius:4px;
+  }
+  .deliv-num{
+    font-family:'Cormorant Garamond', serif;
+    font-size:2.5rem;
+    color:var(--gold);
+    font-weight:600;
+    line-height:1;
+    font-style:italic;
+  }
+  .deliv h5{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.2rem;
+    color:var(--cream);
+    margin:.5rem 0 .5rem;
+    font-weight:600;
+  }
+  .deliv p{
+    font-family:'Inter Tight', sans-serif;
+    font-size:.85rem;
+    color:rgba(250,246,238,.8);
+    font-style:normal;
+    margin:0;
+    line-height:1.5;
+  }
+  .offices{
+    margin-top:3rem;
+    padding-top:2rem;
+    border-top:1px solid rgba(184,153,104,.3);
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+    gap:1.5rem;
+  }
+  .office h6{
+    font-family:'Cormorant Garamond', serif;
+    color:var(--gold);
+    font-size:1.1rem;
+    font-weight:600;
+    margin-bottom:.4rem;
+  }
+  .office p{
+    font-family:'Inter Tight', sans-serif;
+    font-style:normal;
+    font-size:.8rem;
+    color:rgba(250,246,238,.75);
+    line-height:1.5;
+    margin:0;
+  }
+
+  /* ========== MATURITY CHART (SVG) ========== */
+  .chart-wrap{
+    background:var(--cream);
+    padding:2rem;
+    border-radius:6px;
+    margin:2rem 0;
+    box-shadow:var(--shadow);
+  }
+  .chart-title{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.3rem;
+    color:var(--bordo);
+    margin-bottom:.4rem;
+    font-weight:600;
+  }
+  .chart-caption{
+    font-size:.8rem;
+    color:var(--ink-soft);
+    margin-bottom:1.5rem;
+  }
+
+  /* ========== FILTER PILLS ========== */
+  .filter-bar{
+    display:flex;
+    gap:.5rem;
+    flex-wrap:wrap;
+    margin:1.5rem 0;
+    padding:1rem;
+    background:var(--cream);
+    border-radius:6px;
+    align-items:center;
+  }
+  .filter-label{
+    font-size:.7rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--bordo);
+    font-weight:600;
+    margin-right:.5rem;
+  }
+  .pill{
+    padding:.45rem .9rem;
+    border:1px solid var(--line);
+    background:transparent;
+    color:var(--ink-soft);
+    border-radius:20px;
+    font-family:'Inter Tight', sans-serif;
+    font-size:.78rem;
+    cursor:pointer;
+    transition:all .2s ease;
+    font-weight:500;
+  }
+  .pill:hover{border-color:var(--bordo);color:var(--bordo)}
+  .pill.active{background:var(--bordo);color:var(--cream);border-color:var(--bordo)}
+
+  /* ========== MOBILE NAV TOGGLE ========== */
+  .menu-btn{
+    display:none;
+    position:fixed;
+    top:1rem;
+    right:1rem;
+    z-index:100;
+    background:var(--bordo);
+    color:var(--cream);
+    border:none;
+    padding:.65rem .9rem;
+    border-radius:4px;
+    cursor:pointer;
+    font-size:.85rem;
+    box-shadow:var(--shadow-deep);
+  }
+
+  /* ========== READING PROGRESS ========== */
+  .progress-bar{
+    position:fixed;
+    top:0;
+    left:0;
+    height:3px;
+    background:var(--gold);
+    z-index:99;
+    transition:width .1s ease;
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width:980px){
+    .layout{grid-template-columns:1fr}
+    .sidebar{
+      position:fixed;
+      top:0;
+      left:0;
+      width:280px;
+      transform:translateX(-100%);
+      transition:transform .3s ease;
+      z-index:99;
+      height:100vh;
+    }
+    .sidebar.open{transform:translateX(0)}
+    .menu-btn{display:block}
+    .container{padding:3rem 1.75rem}
+    .cover{padding:3rem 2rem}
+    .closing{padding:3rem 2rem}
+    .juris-card{grid-template-columns:1fr;gap:.75rem}
+    .timeline-item{grid-template-columns:80px 1fr;gap:1rem}
+    .timeline-year{font-size:1.5rem}
+    .program summary{grid-template-columns:auto 1fr auto;gap:.75rem}
+    .program-code{display:none}
+  }
+
+  /* ========== ANIMATIONS ========== */
+  .fade-in{
+    opacity:0;
+    transform:translateY(20px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .fade-in.visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  /* ========== PRINT ========== */
+  @media print{
+    .sidebar, .menu-btn, .progress-bar, .scroll-cue{display:none}
+    .layout{grid-template-columns:1fr}
+    .program{break-inside:avoid}
+    body{background:white}
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+<button class="menu-btn" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰ Menu</button>
+
+<div class="layout">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <h1>HMPX</h1>
+      <div class="brand-tag">Inteligência Fiscal</div>
+    </div>
+
+    <div class="nav-label">Conteúdo</div>
+    <ul class="nav-list">
+      <li><a href="#cover" class="active"><span class="nav-num">00</span><span>Abertura</span></a></li>
+      <li><a href="#cap1"><span class="nav-num">01</span><span>Matriz conceitual</span></a></li>
+      <li><a href="#cap2"><span class="nav-num">02</span><span>Linha temporal</span></a></li>
+      <li><a href="#cap3"><span class="nav-num">03</span><span>Programas federais</span></a></li>
+      <li><a href="#cap4"><span class="nav-num">04</span><span>Programas paulistas</span></a></li>
+      <li><a href="#cap5"><span class="nav-num">05</span><span>Reforma Tributária</span></a></li>
+      <li><a href="#cap6"><span class="nav-num">06</span><span>Jurisprudência</span></a></li>
+      <li><a href="#cap7"><span class="nav-num">07</span><span>Análise crítica</span></a></li>
+      <li><a href="#cap8"><span class="nav-num">08</span><span>Roteiro prático</span></a></li>
+      <li><a href="#closing"><span class="nav-num">→</span><span>Conclusão e contato</span></a></li>
+    </ul>
+
+    <div class="nav-label">Acervo</div>
+    <ul class="nav-list">
+      <li><a href="#cap3"><span class="nav-num">13</span><span>Programas analisados</span></a></li>
+      <li><a href="#cap6"><span class="nav-num">21</span><span>Fontes essenciais</span></a></li>
+    </ul>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+
+    <!-- ============ COVER ============ -->
+    <section class="cover" id="cover">
+      <div class="cover-inner">
+        <div class="cover-eyebrow">E-book Institucional · Maio 2026</div>
+        <h1>Programas de <em>Conformidade Tributária</em> no Brasil</h1>
+        <p class="cover-subtitle">
+          Da fiscalização repressiva à governança fiscal cooperativa: como o
+          contribuinte empresarial deve se posicionar diante do novo IVA dual,
+          da transação tributária e das janelas de regularização excepcional.
+        </p>
+        <div class="cover-meta">
+          <div class="meta-item">
+            <div class="meta-label">Elaboração</div>
+            <div class="meta-value">HMPX Inteligência Fiscal</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Atualização</div>
+            <div class="meta-value">7 de maio de 2026</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Páginas</div>
+            <div class="meta-value">11 capítulos · 13 programas</div>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-cue">↓ deslize para começar</div>
+    </section>
+
+    <div class="container">
+
+      <!-- ============ INTRODUÇÃO ============ -->
+      <section class="chapter" id="intro">
+        <div class="chapter-header">
+          <div class="chapter-num">Sumário executivo</div>
+          <h2>Uma <em>arquitetura</em> progressiva de governança fiscal</h2>
+        </div>
+        <div class="prose">
+          <p>
+            Os programas brasileiros de conformidade, autorregularização, regularização
+            de passivos e transação fiscal <strong>não constituem um conjunto disperso
+            de benefícios ocasionais</strong>. Eles formam, em conjunto, uma arquitetura
+            progressiva pela qual o Estado desloca parte de sua atuação do modelo
+            exclusivamente repressivo para um modelo graduado — baseado em dados,
+            classificação de risco, orientação, correção voluntária, consensualidade,
+            negociação de passivos e indução de comportamento conforme.
+          </p>
+          <p>
+            A Reforma Tributária do Consumo, ao instituir o IVA dual composto por
+            <strong>CBS e IBS</strong>, além do Imposto Seletivo, amplia substancialmente
+            a centralidade desses instrumentos. A transição até 2033 exigirá
+            rastreabilidade documental, qualidade cadastral, consistência entre
+            documentos fiscais e escrituração, adequação tecnológica, revisão de
+            benefícios, saneamento de créditos e passivos, e capacidade de interlocução
+            preventiva com a Administração Tributária.
+          </p>
+
+          <div class="thesis">
+            <div class="thesis-label">Tese central</div>
+            <p class="thesis-text">
+              A conformidade tributária deixa de ser mera rotina fiscal e passa a
+              funcionar como ativo de governança, financiamento, reputação, defesa e
+              competitividade. Nessa nova lógica, regularidade, autorregularização,
+              transação e adaptação à Reforma Tributária devem ser administradas como
+              instrumentos integrados de estratégia empresarial.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CAP 1 — MATRIZ CONCEITUAL ============ -->
+      <section class="chapter" id="cap1">
+        <div class="chapter-header">
+          <div class="chapter-num">Capítulo 01</div>
+          <h2>Matriz <em>conceitual</em> comum</h2>
+          <p class="chapter-lead">
+            Antes de comparar programas, é preciso distinguir o que cada um faz.
+            Cinco categorias funcionais organizam a totalidade do sistema.
+          </p>
+        </div>
+
+        <div class="prose">
+          <p>
+            <strong>Conformidade tributária</strong> designa o conjunto de práticas
+            materiais, procedimentais, tecnológicas e decisórias destinadas a
+            assegurar que fatos geradores, bases de cálculo, regimes específicos,
+            créditos, benefícios, pagamentos, retenções e obrigações acessórias sejam
+            administrados com aderência objetiva à legislação aplicável.
+          </p>
+          <p>
+            <strong>Conformidade cooperativa</strong> é uma etapa qualitativamente
+            superior: pressupõe transparência qualificada, controles internos
+            estruturados, governança tributária e disposição de diálogo antecipado
+            com o Fisco. <strong>Autorregularização fiscal</strong> corresponde à
+            correção espontânea ou induzida de inconsistências, preferencialmente
+            antes do início formal do procedimento fiscal. <strong>Consensualidade
+            tributária</strong> representa técnica de prevenção ou composição de
+            controvérsias sem derrogação da legalidade. <strong>Transação tributária</strong>,
+            fundada no art. 171 do CTN, é negócio jurídico público de composição
+            condicionado à capacidade de pagamento e ao grau de recuperabilidade do
+            crédito — e não se confunde com parcelamento, anistia ou benefício
+            discricionário.
+          </p>
+        </div>
+
+        <div class="cat-grid">
+          <div class="cat-card">
+            <div class="cat-icon">P</div>
+            <h4>Conformidade preventiva</h4>
+            <p>Evitar passivo. Ajustar governança, dados e processos antes da autuação.</p>
+            <div class="examples">Confia · Sintonia · Aproxime · Nos Conformes · PNCT</div>
+          </div>
+          <div class="cat-card">
+            <div class="cat-icon">O</div>
+            <h4>Fiscalização orientadora</h4>
+            <p>Induzir correção. Responder alertas fiscais com retificação, prova ou pagamento.</p>
+            <div class="examples">Autorregularização RFB · SEFAZ-SP · Malhas</div>
+          </div>
+          <div class="cat-card">
+            <div class="cat-icon">C</div>
+            <h4>Consensualidade técnica</h4>
+            <p>Prevenir litígio interpretativo. Levar controvérsias complexas ao Fisco antes de litigar.</p>
+            <div class="examples">Receita de Consenso · Receita Soluciona</div>
+          </div>
+          <div class="cat-card">
+            <div class="cat-icon">R</div>
+            <h4>Regularização excepcional</h4>
+            <p>Regularizar situação patrimonial específica. Avaliar custo de adesão e efeitos futuros.</p>
+            <div class="examples">DABIM · REARP Atualização · RERCT-Geral</div>
+          </div>
+          <div class="cat-card">
+            <div class="cat-icon">T</div>
+            <h4>Transação</h4>
+            <p>Reorganizar passivo constituído. Negociar dívida ou litígio com concessões recíprocas.</p>
+            <div class="examples">PGFN/RFB · Acordo Paulista</div>
+          </div>
+          <div class="cat-card">
+            <div class="cat-icon">A</div>
+            <h4>Controle aduaneiro</h4>
+            <p>Qualificar cadeia logística e reduzir risco. Obter facilitação e previsibilidade.</p>
+            <div class="examples">OEA — Operador Econômico Autorizado</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CAP 2 — LINHA TEMPORAL ============ -->
+      <section class="chapter" id="cap2">
+        <div class="chapter-header">
+          <div class="chapter-num">Capítulo 02</div>
+          <h2>Linha <em>temporal</em> integrada</h2>
+          <p class="chapter-lead">
+            Onze anos de construção institucional — do primeiro RERCT à
+            operacionalização plena do IVA dual em 2033.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-year">2015<small>–16</small></div>
+            <div class="timeline-content">
+              <h4>OEA e primeiro RERCT</h4>
+              <p>Consolidação da certificação aduaneira e primeira grande janela de regularização cambial e tributária.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">2018</div>
+            <div class="timeline-content">
+              <h4>Nos Conformes e devedor contumaz paulista</h4>
+              <p>LC paulista nº 1.320/2018: classificação de contribuintes de ICMS, orientação à autorregularização e regime especial aplicável ao devedor contumaz.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">2020</div>
+            <div class="timeline-content">
+              <h4>Lei nº 13.988/2020</h4>
+              <p>Estruturação nacional da transação tributária federal como modelo negocial permanente.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">2021</div>
+            <div class="timeline-content">
+              <h4>PERSE</h4>
+              <p>Criação do Programa Emergencial de Retomada do Setor de Eventos pela Lei nº 14.148/2021.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">2023</div>
+            <div class="timeline-content">
+              <h4>EC nº 132/2023, Resolve Já e Acordo Paulista</h4>
+              <p>Reforma Tributária do Consumo; em São Paulo, reorganização de multas, contencioso administrativo e transação estadual.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">2024</div>
+            <div class="timeline-content">
+              <h4>Receita de Consenso, PERSE reformulado, DABIM e RERCT-Geral</h4>
+              <p>Ampliação da consensualidade e abertura de janelas excepcionais de regularização e atualização patrimonial.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">2025</div>
+            <div class="timeline-content">
+              <h4>LC nº 214/2025 e operacionalização da RTC</h4>
+              <p>Regulamentação central de IBS, CBS e Imposto Seletivo, com manuais, portal e infraestrutura de testes.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">2026</div>
+            <div class="timeline-content">
+              <h4>Confia, Sintonia, Aproxime, PNCT e LC nº 225/2026 · Ano-teste CBS/IBS</h4>
+              <p>Consolidação da conformidade cooperativa, classificação de bons contribuintes e início da apuração assistida do novo IVA dual.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">2027<small>–33</small></div>
+            <div class="timeline-content">
+              <h4>Transição plena</h4>
+              <p>Substituição progressiva dos tributos atuais, extinção gradual de regimes incompatíveis e maturação de classificação, fiscalização e autorregularização no novo sistema.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CAP 3 — ÂMBITO FEDERAL ============ -->
+      <section class="chapter" id="cap3">
+        <div class="chapter-header">
+          <div class="chapter-num">Capítulo 03</div>
+          <h2>Âmbito <em>federal</em></h2>
+          <p class="chapter-lead">
+            Treze programas em sete camadas: classificatória, relacional, aduaneira,
+            consensual, corretiva, negocial e extraordinária.
+          </p>
+        </div>
+
+        <div class="prose">
+          <p>
+            No plano federal, os instrumentos devem ser lidos em camadas. A
+            <strong>primeira é classificatória</strong> (Receita Sintonia, PNCT). A
+            <strong>segunda é relacional</strong> (Confia, Aproxime). A
+            <strong>terceira é aduaneira</strong> (OEA). A <strong>quarta é
+            consensual</strong> (Receita de Consenso, Receita Soluciona). A
+            <strong>quinta é corretiva</strong> (malhas e autorregularizações). A
+            <strong>sexta é negocial</strong> (transação federal). A
+            <strong>sétima é extraordinária</strong>, setorial ou patrimonial (PERSE,
+            DABIM, REARP Atualização, RERCT-Geral).
+          </p>
+        </div>
+
+        <div class="filter-bar">
+          <span class="filter-label">Filtrar por camada:</span>
+          <button class="pill active" data-filter="all">Todos</button>
+          <button class="pill" data-filter="class">Classificatória</button>
+          <button class="pill" data-filter="rel">Relacional</button>
+          <button class="pill" data-filter="adu">Aduaneira</button>
+          <button class="pill" data-filter="cons">Consensual</button>
+          <button class="pill" data-filter="corr">Corretiva</button>
+          <button class="pill" data-filter="neg">Negocial</button>
+          <button class="pill" data-filter="ext">Extraordinária</button>
+        </div>
+
+        <div class="programs-stack" id="federal-stack">
+
+          <!-- CONFIA -->
+          <details class="program" data-cat="rel">
+            <summary>
+              <span class="program-code">3.1</span>
+              <span class="program-title">
+                CONFIA
+                <span class="sub">Programa de Conformidade Cooperativa Fiscal</span>
+              </span>
+              <span class="badge badge-new">Cooperativo</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="program-body">
+              <div class="program-grid">
+                <div class="field"><span class="field-label">Conceito</span><span class="field-value">Relacionamento cooperativo entre Receita Federal e contribuintes de alta relevância econômica, baseado em transparência, boa-fé e gestão compartilhada de riscos.</span></div>
+                <div class="field"><span class="field-label">Finalidade</span><span class="field-value">Reduzir litigiosidade estrutural, antecipar riscos relevantes, substituir parte da fiscalização repressiva por prevenção qualificada.</span></div>
+                <div class="field"><span class="field-label">Fundamento</span><span class="field-value">LC nº 225/2026; atos normativos da Receita Federal; edital da edição vigente; matriz internacional de cooperative compliance.</span></div>
+                <div class="field"><span class="field-label">Público-alvo</span><span class="field-value">Grandes contribuintes especiais ou empresas com elevada complexidade e maturidade fiscal.</span></div>
+                <div class="field"><span class="field-label">Requisitos de adesão</span><span class="field-value">Candidatura na janela aberta; regularidade fiscal ou CPEND; controles internos documentados; capacidade de interlocução técnica; aceitação de plano de trabalho.</span></div>
+                <div class="field"><span class="field-label">Benefícios</span><span class="field-value">Ponto focal, prioridade em demandas, renovação cooperativa de certidões, uso do Receita de Consenso, previsibilidade e menor custo de litígio.</span></div>
+                <div class="field"><span class="field-label">Maturidade</span><span class="field-value">Fase piloto anterior; primeira edição institucional em 2026. Alta em desenho normativo, média em capilaridade.</span></div>
+                <div class="field"><span class="field-label">Exclusão</span><span class="field-value">Perda de regularidade, omissão relevante, descumprimento de plano, alteração de perfil, fraude ou comportamento incompatível com confiança cooperativa.</span></div>
+              </div>
+              <div class="program-impact">
+                <span class="field-label">Impacto pós-Reforma</span>
+                <span class="field-value">Canal privilegiado para controvérsias complexas de CBS/IBS, créditos, regimes específicos e adaptação sistêmica em grandes cadeias.</span>
+              </div>
+            </div>
+          </details>
+
+          <!-- SINTONIA -->
+          <details class="program" data-cat="class">
+            <summary>
+              <span class="program-code">3.2</span>
+              <span class="program-title">
+                Receita Sintonia
+                <span class="sub">Classificação federal de conformidade</span>
+              </span>
+              <span class="badge badge-high">Maturidade alta</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="program-body">
+              <div class="program-grid">
+                <div class="field"><span class="field-label">Conceito</span><span class="field-value">Classificação de pessoas jurídicas segundo regularidade cadastral, entrega de declarações, consistência informacional e pagamento tempestivo.</span></div>
+                <div class="field"><span class="field-label">Finalidade</span><span class="field-value">Transformar histórico fiscal em sinalização objetiva de risco, permitindo orientação preventiva e diferenciação de tratamento ao bom contribuinte.</span></div>
+                <div class="field"><span class="field-label">Fundamento</span><span class="field-value">LC nº 225/2026; atos institucionais da Receita Federal sobre Receita Sintonia e Selo Sintonia.</span></div>
+                <div class="field"><span class="field-label">Público-alvo</span><span class="field-value">Pessoas jurídicas alcançadas pela classificação, inclusive MEs e EPPs optantes pelo Simples Nacional.</span></div>
+                <div class="field"><span class="field-label">Benefícios</span><span class="field-value">Classificação, Selo Sintonia A+ quando cabível, transparência reputacional, orientação sobre indícios de infração e integração com Confia/OEA.</span></div>
+                <div class="field"><span class="field-label">Maturidade</span><span class="field-value">Expansão em 2025/2026; alta como política de dados, média quanto à assimilação empresarial.</span></div>
+              </div>
+              <div class="program-impact">
+                <span class="field-label">Impacto pós-Reforma</span>
+                <span class="field-value">A classificação tende a incorporar qualidade dos dados de CBS/IBS, destaque documental, conformidade de créditos, DIRBI, apuração assistida e interação com PNCT.</span>
+              </div>
+            </div>
+          </details>
+
+          <!-- APROXIME -->
+          <details class="program" data-cat="rel">
+            <summary>
+              <span class="program-code">3.3</span>
+              <span class="program-title">
+                APROXIME
+                <span class="sub">Programa de Proatividade do Atendimento</span>
+              </span>
+              <span class="badge badge-mid">Implantação gradual</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="program-body">
+              <div class="program-grid">
+                <div class="field"><span class="field-label">Conceito</span><span class="field-value">Atendimento proativo da Receita Federal voltado à prevenção de pendências, aproximação operacional com contribuintes selecionados e antecipação de problemas fiscais.</span></div>
+                <div class="field"><span class="field-label">Finalidade</span><span class="field-value">Evitar que falhas cadastrais, declaratórias, de pagamento ou de certidão se convertam em autuação, indeferimento ou litígio.</span></div>
+                <div class="field"><span class="field-label">Público-alvo</span><span class="field-value">Contribuintes diferenciados, empresas selecionadas por perfil de risco e públicos abrangidos por implantação gradual.</span></div>
+                <div class="field"><span class="field-label">Benefícios</span><span class="field-value">Atendimento personalizado, prevenção de pendências, melhor gestão de CND/CPEND, redução de custo de interação e ganho de previsibilidade operacional.</span></div>
+                <div class="field"><span class="field-label">Maturidade</span><span class="field-value">Lançamento no final de 2025; implantação progressiva em 2026; média-baixa por ser iniciativa recente.</span></div>
+              </div>
+              <div class="program-impact">
+                <span class="field-label">Impacto pós-Reforma</span>
+                <span class="field-value">Pode funcionar como linha de prevenção para falhas de sistemas, leiautes, CNPJ alfanumérico, Portal RTC, documentos fiscais e apuração assistida.</span>
+              </div>
+            </div>
+          </details>
+
+          <!-- OEA -->
+          <details class="program" data-cat="adu">
+            <summary>
+              <span class="program-code">3.4</span>
+              <span class="program-title">
+                OEA
+                <span class="sub">Operador Econômico Autorizado</span>
+              </span>
+              <span class="badge badge-high">Consolidado</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="program-body">
+              <div class="program-grid">
+                <div class="field"><span class="field-label">Conceito</span><span class="field-value">Certificação aduaneira concedida a intervenientes da cadeia de comércio exterior que comprovem segurança, conformidade e capacidade de controle.</span></div>
+                <div class="field"><span class="field-label">Fundamento</span><span class="field-value">Regulamento Aduaneiro; Instrução Normativa RFB nº 2.318/2026 e normas OEA correlatas; instrumentos de reconhecimento mútuo.</span></div>
+                <div class="field"><span class="field-label">Público-alvo</span><span class="field-value">Importadores, exportadores, transportadores, agentes de carga, depositários, operadores portuários/aeroportuários e demais intervenientes elegíveis.</span></div>
+                <div class="field"><span class="field-label">Benefícios</span><span class="field-value">Menor seleção para conferência, prioridade, facilitação, ponto de contato, uso da marca, participação em fóruns e vantagens por integração com Sintonia/Confia.</span></div>
+                <div class="field"><span class="field-label">Maturidade</span><span class="field-value">Programa consolidado desde a década de 2010; atualização relevante em 2026 com novos níveis; alta.</span></div>
+              </div>
+              <div class="program-impact">
+                <span class="field-label">Impacto pós-Reforma</span>
+                <span class="field-value">Ganha relevância em regimes de importação/exportação, créditos de IBS/CBS, diferimentos, fluxo de caixa e integração entre dados aduaneiros e fiscais.</span>
+              </div>
+            </div>
+          </details>
+
+          <!-- PNCT -->
+          <details class="program" data-cat="class">
+            <summary>
+              <span class="program-code">3.5</span>
+              <span class="program-title">
+                PNCT
+                <span class="sub">Programa Nacional de Conformidade Tributária</span>
+              </span>
+              <span class="badge badge-new">Estrutural RTC</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="program-body">
+              <div class="program-grid">
+                <div class="field"><span class="field-label">Conceito</span><span class="field-value">Programa nacional integrador de conformidade, associado ao IBS e à CBS, destinado a harmonizar tratamento diferenciado, bons antecedentes fiscais, autorregularização e classificação.</span></div>
+                <div class="field"><span class="field-label">Finalidade</span><span class="field-value">Criar eixo nacional de regularidade fiscal no novo IVA dual, evitando fragmentação entre União, Comitê Gestor do IBS, Estados, DF e Municípios.</span></div>
+                <div class="field"><span class="field-label">Fundamento</span><span class="field-value">LC nº 214/2025 e alterações posteriores da legislação complementar da Reforma; integração com LC nº 225/2026.</span></div>
+                <div class="field"><span class="field-label">Órgão responsável</span><span class="field-value">Receita Federal e Comitê Gestor do IBS, com participação de administrações tributárias subnacionais.</span></div>
+                <div class="field"><span class="field-label">Benefícios</span><span class="field-value">Tratamento diferenciado, orientação preventiva, autorregularização, possível prioridade em ressarcimentos, redução qualificada de penalidades.</span></div>
+                <div class="field"><span class="field-label">Maturidade</span><span class="field-value">Previsão normativa ligada à Reforma em 2025/2026; regulamentação gradual; institucional ainda em formação.</span></div>
+              </div>
+              <div class="program-impact">
+                <span class="field-label">Impacto pós-Reforma</span>
+                <span class="field-value">É o programa mais diretamente conectado à implementação do IBS/CBS e tende a organizar a política nacional de bons contribuintes no novo sistema.</span>
+              </div>
+            </div>
+          </details>
+
+          <!-- RECEITA DE CONSENSO -->
+          <details class="program" data-cat="cons">
+            <summary>
+              <span class="program-code">3.6</span>
+              <span class="program-title">
+                Receita de Consenso
+                <span class="sub">Mediação técnica e prevenção de litígios</span>
+              </span>
+              <span class="badge badge-mid">Consensual</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="program-body">
+              <div class="program-grid">
+                <div class="field"><span class="field-label">Conceito</span><span class="field-value">Procedimento de mediação técnica e consensualidade fiscal para evitar litígios entre Receita Federal e contribuintes elegíveis, em controvérsias concretas e delimitáveis.</span></div>
+                <div class="field"><span class="field-label">Fundamento</span><span class="field-value">Portaria RFB nº 467/2024; atos complementares e funcionamento por centro especializado de prevenção e solução de conflitos.</span></div>
+                <div class="field"><span class="field-label">Público-alvo</span><span class="field-value">Contribuintes com elevado grau de conformidade e temas elegíveis, especialmente grandes empresas com complexidade fiscal relevante.</span></div>
+                <div class="field"><span class="field-label">Benefícios</span><span class="field-value">Previsibilidade, redução de litígio, solução técnica formalizada, proteção procedimental e maior segurança de decisão empresarial.</span></div>
+                <div class="field"><span class="field-label">Maturidade</span><span class="field-value">Criado em 2024; amadurecimento em 2025/2026; média, com alta relevância estratégica.</span></div>
+              </div>
+              <div class="program-impact">
+                <span class="field-label">Impacto pós-Reforma</span>
+                <span class="field-value">Instrumento adequado para controvérsias de creditamento, regimes específicos, local de consumo, classificação de operações e apuração assistida.</span>
+              </div>
+            </div>
+          </details>
+
+          <!-- RECEITA SOLUCIONA -->
+          <details class="program" data-cat="cons">
+            <summary>
+              <span class="program-code">3.7</span>
+              <span class="program-title">
+                Receita Soluciona
+                <span class="sub">Diálogo institucional com entidades representativas</span>
+              </span>
+              <span class="badge badge-low">Implantação recente</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="program-body">
+              <div class="program-grid">
+                <div class="field"><span class="field-label">Conceito</span><span class="field-value">Canal institucional de diálogo entre Receita Federal e entidades representativas, voltado a problemas coletivos, setoriais ou recorrentes.</span></div>
+                <div class="field"><span class="field-label">Público-alvo</span><span class="field-value">Entidades representativas, associações, sindicatos empresariais, federações e grupos setoriais com demanda coletiva qualificada.</span></div>
+                <div class="field"><span class="field-label">Benefícios</span><span class="field-value">Diálogo qualificado, orientação setorial, redução de assimetria informacional e possibilidade de aperfeiçoamento de serviços ou normas.</span></div>
+                <div class="field"><span class="field-label">Maturidade</span><span class="field-value">Implantação recente; média-baixa; alto potencial em temas da Reforma.</span></div>
+              </div>
+              <div class="program-impact">
+                <span class="field-label">Impacto pós-Reforma</span>
+                <span class="field-value">Relevante para setores impactados por regimes diferenciados, NFS-e, documentos fiscais, split payment, créditos e obrigações compartilhadas.</span>
+              </div>
+            </div>
+          </details>
+
+          <!-- AUTORREGULARIZAÇÃO -->
+          <details class="program" data-cat="corr">
+            <summary>
+              <span class="program-code">3.8</span>
+              <span class="program-title">
+                Autorregularização Federal
+                <span class="sub">Malhas fiscais digitais e correção orientada</span>
+              </span>
+              <span class="badge badge-high">Permanente</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="program-body">
+              <div class="program-grid">
+                <div class="field"><span class="field-label">Conceito</span><span class="field-value">Conjunto de ações pelas quais a Receita Federal identifica inconsistências por cruzamento eletrônico de dados e oportuniza correção antes da autuação ou com redução de penalidades.</span></div>
+                <div class="field"><span class="field-label">Fundamento</span><span class="field-value">CTN, art. 138; legislação de obrigações acessórias; programas específicos, inclusive Lei nº 14.740/2023.</span></div>
+                <div class="field"><span class="field-label">Público-alvo</span><span class="field-value">PF e PJ com inconsistências em declarações, pagamentos, compensações, benefícios, retenções, DIRBI, DCTFWeb, EFD, ECF, PER/DCOMP.</span></div>
+                <div class="field"><span class="field-label">Benefícios</span><span class="field-value">Correção com menor custo, possível afastamento ou redução de multa, prevenção de autuação, saneamento de certidões e melhoria de classificação.</span></div>
+                <div class="field"><span class="field-label">Maturidade</span><span class="field-value">Instrumento permanente com campanhas periódicas; alta em dados e média em orientação; crescente automação.</span></div>
+              </div>
+              <div class="program-impact">
+                <span class="field-label">Impacto pós-Reforma</span>
+                <span class="field-value">Aumentará com apuração assistida, documentos fiscais como confissão de dívida, DIRBI, CBS/IBS e bases compartilhadas.</span>
+              </div>
+            </div>
+          </details>
+
+          <!-- TRANSAÇÃO FEDERAL -->
+          <details class="program" data-cat="neg">
+            <summary>
+              <span class="program-code">3.9</span>
+              <span class="program-title">
+                Transação Tributária Federal
+                <span class="sub">Negociação de passivos com PGFN/RFB</span>
+              </span>
+              <span class="badge badge-high">Permanente</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="program-body">
+              <div class="program-grid">
+                <div class="field"><span class="field-label">Conceito</span><span class="field-value">Negociação de créditos tributários federais inscritos ou discutidos, com concessões recíprocas, descontos condicionados e planos de pagamento vinculados a recuperabilidade e capacidade de pagamento.</span></div>
+                <div class="field"><span class="field-label">Fundamento</span><span class="field-value">CTN, arts. 156, III, e 171; Lei nº 13.988/2020; Portaria PGFN nº 6.757/2022; editais PGFN/RFB.</span></div>
+                <div class="field"><span class="field-label">Público-alvo</span><span class="field-value">Devedores da União, empresas em recuperação, contribuintes com dívida ativa, litígios administrativos ou teses abrangidas por edital.</span></div>
+                <div class="field"><span class="field-label">Benefícios</span><span class="field-value">Descontos sobre acréscimos, prazos ampliados, uso de prejuízo fiscal/base negativa em hipóteses normativas, regularização de CND e encerramento de litígios.</span></div>
+                <div class="field"><span class="field-label">Maturidade</span><span class="field-value">Modelo permanente desde 2020, com editais periódicos; alta, mas dependente de análise editalícia atualizada.</span></div>
+              </div>
+              <div class="program-impact">
+                <span class="field-label">Impacto pós-Reforma</span>
+                <span class="field-value">Saneia passivos antes da transição, preserva certidões, fluxo de caixa e capacidade de investimento em adaptação tecnológica.</span>
+              </div>
+            </div>
+          </details>
+
+          <!-- PERSE -->
+          <details class="program" data-cat="ext">
+            <summary>
+              <span class="program-code">3.10</span>
+              <span class="program-title">
+                PERSE
+                <span class="sub">Programa Emergencial de Retomada do Setor de Eventos</span>
+              </span>
+              <span class="badge badge-low">Em encerramento</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="program-body">
+              <div class="program-grid">
+                <div class="field"><span class="field-label">Conceito</span><span class="field-value">Benefício setorial de alíquota zero para tributos federais, posteriormente condicionado a habilitação, requisitos e limite de custo fiscal.</span></div>
+                <div class="field"><span class="field-label">Fundamento</span><span class="field-value">Lei nº 14.148/2021; Lei nº 14.859/2024; atos de habilitação e fiscalização da Receita Federal.</span></div>
+                <div class="field"><span class="field-label">Público-alvo</span><span class="field-value">Empresas do setor de eventos, turismo, hotelaria e atividades correlatas, observados CNAE, Cadastur, atividade efetiva, regime tributário e habilitação.</span></div>
+                <div class="field"><span class="field-label">Benefícios</span><span class="field-value">Redução a zero de PIS/Pasep, Cofins, CSLL e IRPJ no período e limites aplicáveis; possibilidade de regularização/transação de passivos correlatos.</span></div>
+                <div class="field"><span class="field-label">Maturidade</span><span class="field-value">Criado em 2021; reformulado em 2024; em 2025 houve comunicação de superação do limite fiscal e extinção prospectiva; alta fiscalização e alta litigiosidade.</span></div>
+              </div>
+              <div class="program-impact">
+                <span class="field-label">Impacto pós-Reforma</span>
+                <span class="field-value">Serve como laboratório de governança de benefícios, controle por DIRBI e fiscalização orientada por dados, lógica que tende a se repetir em regimes específicos de IBS/CBS.</span>
+              </div>
+            </div>
+          </details>
+
+          <!-- DABIM -->
+          <details class="program" data-cat="ext">
+            <summary>
+              <span class="program-code">3.11</span>
+              <span class="program-title">
+                DABIM
+                <span class="sub">Declaração de Atualização de Bens Imóveis</span>
+              </span>
+              <span class="badge badge-low">Janela encerrada</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="program-body">
+              <div class="program-grid">
+                <div class="field"><span class="field-label">Conceito</span><span class="field-value">Atualização excepcional do valor de imóveis a valor de mercado mediante recolhimento de tributo em condições específicas.</span></div>
+                <div class="field"><span class="field-label">Fundamento</span><span class="field-value">Lei nº 14.973/2024 e IN RFB nº 2.222/2024.</span></div>
+                <div class="field"><span class="field-label">Público-alvo</span><span class="field-value">Pessoas físicas e jurídicas proprietárias de imóveis declarados que pretendam atualizar o valor fiscal.</span></div>
+                <div class="field"><span class="field-label">Benefícios</span><span class="field-value">Aumento do custo de aquisição fiscal, potencial redução de ganho de capital futuro e saneamento patrimonial declaratório.</span></div>
+                <div class="field"><span class="field-label">Maturidade</span><span class="field-value">Janela excepcional vinculada à Lei nº 14.973/2024; em 2026 a utilidade é retrospectiva, revisional e defensiva. Operacional pontual.</span></div>
+              </div>
+              <div class="program-impact">
+                <span class="field-label">Impacto pós-Reforma</span>
+                <span class="field-value">Indiretamente relevante por aprimorar coerência patrimonial e reduzir riscos de cruzamento fiscal, embora não se vincule diretamente à CBS/IBS.</span>
+              </div>
+            </div>
+          </details>
+
+          <!-- REARP -->
+          <details class="program" data-cat="ext">
+            <summary>
+              <span class="program-code">3.12</span>
+              <span class="program-title">
+                REARP Atualização
+                <span class="sub">Regime Especial de Atualização e Regularização Patrimonial</span>
+              </span>
+              <span class="badge badge-mid">A confirmar</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="program-body">
+              <div class="program-grid">
+                <div class="field"><span class="field-label">Conceito</span><span class="field-value">Janela excepcional de saneamento, atualização ou regularização de bens, direitos ou posições fiscais específicas.</span></div>
+                <div class="field"><span class="field-label">Fundamento</span><span class="field-value">Lei nº 15.265/2025 e atos regulamentares da Receita Federal. Aplicação comercial deve ser precedida de conferência do texto vigente, prazos e sistema operacional.</span></div>
+                <div class="field"><span class="field-label">Público-alvo</span><span class="field-value">Contribuintes PF/PJ com necessidade de atualização patrimonial, regularização declaratória ou redução de risco fiscal latente.</span></div>
+                <div class="field"><span class="field-label">Benefícios</span><span class="field-value">Saneamento declaratório, redução de risco de autuação futura, atualização de custo fiscal ou regularização de bases patrimoniais.</span></div>
+                <div class="field"><span class="field-label">Maturidade</span><span class="field-value">Lei de 2025 com implementação dependente de atos operacionais; a confirmar conforme adesão, divulgação e estabilidade normativa.</span></div>
+              </div>
+              <div class="program-impact">
+                <span class="field-label">Impacto pós-Reforma</span>
+                <span class="field-value">Funciona como instrumento preparatório de transparência patrimonial e consistência informacional em ambiente de cruzamento de dados ampliado.</span>
+              </div>
+            </div>
+          </details>
+
+          <!-- RERCT -->
+          <details class="program" data-cat="ext">
+            <summary>
+              <span class="program-code">3.13</span>
+              <span class="program-title">
+                RERCT-Geral
+                <span class="sub">Regime Especial de Regularização Geral de Bens</span>
+              </span>
+              <span class="badge badge-low">Janela encerrada</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="program-body">
+              <div class="program-grid">
+                <div class="field"><span class="field-label">Conceito</span><span class="field-value">Declaração e regularização de bens, direitos e recursos lícitos mantidos no Brasil ou no exterior em situação declaratória irregular.</span></div>
+                <div class="field"><span class="field-label">Fundamento</span><span class="field-value">Lei nº 14.973/2024 e atos regulamentares da Receita Federal.</span></div>
+                <div class="field"><span class="field-label">Público-alvo</span><span class="field-value">PF e PJ residentes ou domiciliadas no Brasil com ativos lícitos omitidos, declarados incorretamente ou em desconformidade.</span></div>
+                <div class="field"><span class="field-label">Requisitos</span><span class="field-value">Origem lícita, declaração única, avaliação em data-base legal, pagamento de imposto e multa, identificação de ativos.</span></div>
+                <div class="field"><span class="field-label">Benefícios</span><span class="field-value">Regularização tributária e cambial nos limites legais, redução de exposição fiscal e proteção condicionada contra sanções abrangidas.</span></div>
+                <div class="field"><span class="field-label">Maturidade</span><span class="field-value">Janela excepcional vinculada à Lei nº 14.973/2024; em 2026 o foco é análise de adesões, defesa e validação documental.</span></div>
+              </div>
+              <div class="program-impact">
+                <span class="field-label">Impacto pós-Reforma</span>
+                <span class="field-value">Indiretamente relevante ao reforçar transparência patrimonial, coerência contábil e redução de riscos em bases digitais cada vez mais integradas.</span>
+              </div>
+            </div>
+          </details>
+
+        </div>
+      </section>
+
+      <!-- ============ CAP 4 — PAULISTA ============ -->
+      <section class="chapter" id="cap4">
+        <div class="chapter-header">
+          <div class="chapter-num">Capítulo 04</div>
+          <h2>Âmbito <em>paulista</em></h2>
+          <p class="chapter-lead">
+            ICMS como eixo, mas relevância que ultrapassa o imposto estadual.
+            Classificação, AIIMs, dívida ativa, créditos acumulados e fornecedores
+            influenciarão a posição do contribuinte durante a convivência entre
+            ICMS e IBS.
+          </p>
+        </div>
+
+        <div class="programs-stack">
+
+          <details class="program">
+            <summary>
+              <span class="program-code">4.1</span>
+              <span class="program-title">
+                Nos Conformes
+                <span class="sub">Programa de Estímulo à Conformidade Tributária — SP</span>
+              </span>
+              <span class="badge badge-high">Maturidade alta</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="program-body">
+              <div class="program-grid">
+                <div class="field"><span class="field-label">Fundamento</span><span class="field-value">LC estadual nº 1.320/2018; Decreto nº 64.453/2019; Resolução SF nº 105/2018.</span></div>
+                <div class="field"><span class="field-label">Público-alvo</span><span class="field-value">Contribuintes paulistas do ICMS, com classificação especialmente voltada ao Regime Periódico de Apuração.</span></div>
+                <div class="field"><span class="field-label">Benefícios</span><span class="field-value">Classificação de A+ a E, tratamento conforme perfil de risco, orientação preventiva, potencial facilitação de créditos acumulados.</span></div>
+                <div class="field"><span class="field-label">Riscos</span><span class="field-value">Rebaixamento, perda de contrapartidas, exposição reputacional, intensificação de fiscalização e enquadramento como devedor contumaz.</span></div>
+              </div>
+              <div class="program-impact">
+                <span class="field-label">Impacto pós-Reforma</span>
+                <span class="field-value">Indicador estadual de maturidade fiscal durante a transição ICMS-IBS e no tratamento de créditos, benefícios e operações interestaduais.</span>
+              </div>
+            </div>
+          </details>
+
+          <details class="program">
+            <summary>
+              <span class="program-code">4.2</span>
+              <span class="program-title">
+                Classificação ICMS-SP
+                <span class="sub">Rating fiscal A+ a E / NC</span>
+              </span>
+              <span class="badge badge-high">Mensal</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="program-body">
+              <div class="program-grid">
+                <div class="field"><span class="field-label">Conceito</span><span class="field-value">Sistema de rating fiscal que enquadra contribuintes em A+, A, B, C, D, E ou NC a partir de critérios de adimplência, aderência e perfil de fornecedores.</span></div>
+                <div class="field"><span class="field-label">Requisitos</span><span class="field-value">Adimplência, consistência declaratória, regularidade de fornecedores e ausência de pendências relevantes.</span></div>
+                <div class="field"><span class="field-label">Riscos</span><span class="field-value">Nota baixa por débito, divergência ou fornecedores de risco; prejuízo comercial em cadeias que exigem regularidade.</span></div>
+              </div>
+              <div class="program-impact">
+                <span class="field-label">Impacto pós-Reforma</span>
+                <span class="field-value">O rating estadual tende a dialogar com modelos federais/nacionais de conformidade e com o PNCT.</span>
+              </div>
+            </div>
+          </details>
+
+          <details class="program">
+            <summary>
+              <span class="program-code">4.3</span>
+              <span class="program-title">
+                Autorregularização paulista
+                <span class="sub">AID, AFP e Malhas Fiscais — SEFAZ-SP</span>
+              </span>
+              <span class="badge badge-high">Permanente</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="program-body">
+              <div class="program-grid">
+                <div class="field"><span class="field-label">Público-alvo</span><span class="field-value">Contribuintes de ICMS com divergências entre documentos fiscais, escrituração, GIA/EFD, pagamentos, ST, créditos, operações interestaduais.</span></div>
+                <div class="field"><span class="field-label">Benefícios</span><span class="field-value">Correção sem auto de infração em hipóteses cabíveis, preservação de classificação, redução de litígio.</span></div>
+              </div>
+              <div class="program-impact">
+                <span class="field-label">Impacto pós-Reforma</span>
+                <span class="field-value">Relevante para saneamento de ICMS antes da migração ao IBS, especialmente créditos acumulados, ST e benefícios estaduais.</span>
+              </div>
+            </div>
+          </details>
+
+          <details class="program">
+            <summary>
+              <span class="program-code">4.4</span>
+              <span class="program-title">
+                Resolve Já
+                <span class="sub">Redução de multas no contencioso administrativo de ICMS</span>
+              </span>
+              <span class="badge badge-mid">Maturidade média-alta</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="program-body">
+              <div class="program-grid">
+                <div class="field"><span class="field-label">Fundamento</span><span class="field-value">Lei estadual nº 17.784/2023 e alterações da Lei nº 6.374/1989.</span></div>
+                <div class="field"><span class="field-label">Público-alvo</span><span class="field-value">Contribuintes com AIIM ou exigências de ICMS ainda na esfera administrativa, antes ou durante a discussão.</span></div>
+                <div class="field"><span class="field-label">Benefícios</span><span class="field-value">Redução de multas, possibilidade de pagamento com crédito acumulado ou ressarcimento ST, encerramento célere de litígios.</span></div>
+                <div class="field"><span class="field-label">Riscos</span><span class="field-value">Confissão/renúncia precipitada, perda de teses relevantes, descumprimento do parcelamento.</span></div>
+              </div>
+              <div class="program-impact">
+                <span class="field-label">Impacto pós-Reforma</span>
+                <span class="field-value">Saneamento pré-dívida ativa antes da redução progressiva do ICMS e da transição ao IBS.</span>
+              </div>
+            </div>
+          </details>
+
+          <details class="program">
+            <summary>
+              <span class="program-code">4.5</span>
+              <span class="program-title">
+                Acordo Paulista
+                <span class="sub">Transação tributária estadual — PGE-SP</span>
+              </span>
+              <span class="badge badge-high">Editais ativos</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="program-body">
+              <div class="program-grid">
+                <div class="field"><span class="field-label">Fundamento</span><span class="field-value">Lei estadual nº 17.843/2023; Resoluções PGE nº 6/2024 e nº 9/2024; resoluções conjuntas PGE/SFP; editais do Acordo Paulista.</span></div>
+                <div class="field"><span class="field-label">Público-alvo</span><span class="field-value">Devedores com débitos inscritos em dívida ativa estadual, tributários ou não tributários, inclusive ICMS, IPVA e outros.</span></div>
+                <div class="field"><span class="field-label">Benefícios</span><span class="field-value">Descontos limitados por lei, prazos de até 120 meses ou 145 meses em hipóteses especiais, compensação com créditos acumulados de ICMS ou precatórios.</span></div>
+                <div class="field"><span class="field-label">Riscos</span><span class="field-value">Rescisão, perda de descontos, retomada da cobrança, vencimento antecipado, execução de garantias.</span></div>
+              </div>
+              <div class="program-impact">
+                <span class="field-label">Impacto pós-Reforma</span>
+                <span class="field-value">Instrumento central para reorganizar passivos de ICMS antes da queda gradual do tributo e da migração econômica ao IBS.</span>
+              </div>
+            </div>
+          </details>
+
+        </div>
+
+        <!-- DEVEDOR CONTUMAZ — destaque especial -->
+        <div class="alert-box">
+          <div class="alert-label">4.6 · Tópico autônomo</div>
+          <h4>Devedor contumaz paulista</h4>
+          <p>
+            O instituto não opera como benefício, classificação reputacional ordinária
+            ou simples mecanismo de cobrança, mas como <strong>categoria qualificada
+            de risco fiscal severo</strong>, destinada a diferenciar a inadimplência
+            episódica da inadimplência reiterada, materialmente relevante e
+            potencialmente lesiva à concorrência.
+          </p>
+          <p>
+            Em 2026, ganhou reforço jurisprudencial relevante com a validação, pelo
+            STF, das medidas paulistas na <strong>ADI nº 7.513</strong>. Na transição
+            ICMS-IBS, a condição de devedor contumaz tende a funcionar como indicador
+            agravado de risco, influenciando crédito, rating, fiscalização orientadora,
+            transação e relacionamento com fornecedores e clientes.
+          </p>
+          <div class="alert-criteria">
+            <div class="crit">
+              <div class="crit-num">6</div>
+              <div class="crit-text">períodos de apuração inadimplidos, consecutivos ou não, nos doze meses anteriores</div>
+            </div>
+            <div class="crit">
+              <div class="crit-num">40k</div>
+              <div class="crit-text">UFESPs em dívida ativa, com relevância patrimonial/operacional</div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ============ CAP 5 — REFORMA TRIBUTÁRIA ============ -->
+      <section class="chapter" id="cap5">
+        <div class="chapter-header">
+          <div class="chapter-num">Capítulo 05</div>
+          <h2>Reforma <em>Tributária</em> do Consumo</h2>
+          <p class="chapter-lead">
+            Não se trata apenas de criar CBS, IBS e Imposto Seletivo. Trata-se de
+            reconstruir documentos fiscais, cadastros, sistemas de apuração e
+            integração entre entes federativos.
+          </p>
+        </div>
+
+        <div class="prose">
+          <p>
+            A implementação da Reforma Tributária não se resume à criação nominal da
+            CBS, do IBS e do Imposto Seletivo. Ela exige a reconstrução de
+            documentos fiscais, cadastros, sistemas de apuração, regras de
+            creditamento, controles de benefícios, procedimentos de ressarcimento,
+            regimes específicos, integração entre entes federativos e canais de
+            atendimento. Por isso, os programas de conformidade, autorregularização
+            e transação deixam de ser acessórios e passam a integrar a
+            <strong>infraestrutura de adaptação empresarial</strong>.
+          </p>
+
+          <div class="thesis">
+            <div class="thesis-label">Efeito prático da transição</div>
+            <p class="thesis-text">
+              A partir do ano-teste, a empresa que emite documento fiscal
+              inconsistente não apenas incorre em risco acessório: ela alimenta a
+              base futura de classificação, fiscalização, apuração assistida,
+              creditamento de clientes, divergência com fornecedores e eventual
+              autorregularização automática.
+            </p>
+          </div>
+        </div>
+
+        <table class="impact-table">
+          <thead>
+            <tr>
+              <th>Dimensão</th>
+              <th>Impacto esperado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Classificação de contribuintes</td>
+              <td>Sintonia, PNCT e Nos Conformes deverão valorar histórico fiscal, dados de documentos eletrônicos, regularidade de pagamentos e respostas a alertas.</td>
+            </tr>
+            <tr>
+              <td>Devedor contumaz</td>
+              <td>Histórico de inadimplência reiterada, passivos inscritos, garantias, parcelamentos e regularidade corrente como indicadores críticos de risco durante a migração ao IBS.</td>
+            </tr>
+            <tr>
+              <td>Cruzamento de dados</td>
+              <td>NF-e, NFC-e, CT-e, NFS-e e demais documentos compõem base integrada de apuração, crédito e fiscalização.</td>
+            </tr>
+            <tr>
+              <td>Fiscalização orientadora</td>
+              <td>Autorregularizações tendem a surgir antes da autuação formal, com indicação de divergência em documentos, apuração assistida e declarações.</td>
+            </tr>
+            <tr>
+              <td>Transação</td>
+              <td>Passivos antigos deverão ser saneados para preservar CND, crédito, capacidade de investimento e migração ordenada.</td>
+            </tr>
+            <tr>
+              <td>Benefícios e regimes específicos</td>
+              <td>PERSE, créditos de ICMS, regimes aduaneiros e incentivos estaduais servem como laboratório para controle digital de renúncia e elegibilidade.</td>
+            </tr>
+            <tr>
+              <td>Gestão de fornecedores</td>
+              <td>A conformidade do fornecedor afetará crédito do adquirente, rating fiscal e exposição a glosa ou malha.</td>
+            </tr>
+            <tr>
+              <td>Governança documental</td>
+              <td>Contratos, cadastro de produtos, NCM, serviço, local de consumo, natureza da operação, CST/cClassTrib e parametrização fiscal tornam-se eixos de compliance.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- VISUALIZAÇÃO TRANSIÇÃO -->
+        <div class="chart-wrap">
+          <div class="chart-title">Transição CBS/IBS · 2025 → 2033</div>
+          <div class="chart-caption">Substituição progressiva dos tributos atuais e maturação dos programas de conformidade</div>
+          <svg viewBox="0 0 800 220" style="width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="grad-old" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#7a1220" stop-opacity=".9"/>
+                <stop offset="1" stop-color="#7a1220" stop-opacity="0"/>
+              </linearGradient>
+              <linearGradient id="grad-new" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#b89968" stop-opacity="0"/>
+                <stop offset="1" stop-color="#b89968" stop-opacity=".9"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Axis -->
+            <line x1="60" y1="170" x2="760" y2="170" stroke="#3d3530" stroke-width="1"/>
+
+            <!-- Years -->
+            <g font-family="JetBrains Mono, monospace" font-size="11" fill="#3d3530" text-anchor="middle">
+              <text x="80" y="195">2025</text>
+              <text x="180" y="195">2026</text>
+              <text x="280" y="195">2027</text>
+              <text x="380" y="195">2028</text>
+              <text x="480" y="195">2029</text>
+              <text x="580" y="195">2030</text>
+              <text x="680" y="195">2033</text>
+            </g>
+
+            <!-- Tick marks -->
+            <g stroke="#3d3530" stroke-width="1">
+              <line x1="80" y1="170" x2="80" y2="175"/>
+              <line x1="180" y1="170" x2="180" y2="175"/>
+              <line x1="280" y1="170" x2="280" y2="175"/>
+              <line x1="380" y1="170" x2="380" y2="175"/>
+              <line x1="480" y1="170" x2="480" y2="175"/>
+              <line x1="580" y1="170" x2="580" y2="175"/>
+              <line x1="680" y1="170" x2="680" y2="175"/>
+            </g>
+
+            <!-- Old system curve -->
+            <path d="M 80 50 L 180 55 L 280 70 L 380 95 L 480 125 L 580 150 L 680 168" stroke="#7a1220" stroke-width="3" fill="none"/>
+            <path d="M 80 50 L 180 55 L 280 70 L 380 95 L 480 125 L 580 150 L 680 168 L 680 170 L 80 170 Z" fill="url(#grad-old)" opacity=".3"/>
+
+            <!-- New system curve -->
+            <path d="M 80 165 L 180 155 L 280 130 L 380 100 L 480 75 L 580 55 L 680 45" stroke="#b89968" stroke-width="3" fill="none"/>
+            <path d="M 80 165 L 180 155 L 280 130 L 380 100 L 480 75 L 580 55 L 680 45 L 680 170 L 80 170 Z" fill="url(#grad-new)" opacity=".3"/>
+
+            <!-- Labels -->
+            <text x="100" y="40" font-family="Cormorant Garamond, serif" font-style="italic" font-size="14" fill="#7a1220" font-weight="600">ICMS · ISS · PIS · COFINS · IPI</text>
+            <text x="540" y="35" font-family="Cormorant Garamond, serif" font-style="italic" font-size="14" fill="#b89968" font-weight="600">IBS · CBS · Imposto Seletivo</text>
+
+            <!-- Ano teste marker -->
+            <line x1="180" y1="20" x2="180" y2="170" stroke="#3d3530" stroke-width="1" stroke-dasharray="3,3" opacity=".4"/>
+            <text x="180" y="15" font-family="Inter Tight" font-size="9" fill="#3d3530" text-anchor="middle" letter-spacing="2">ANO-TESTE</text>
+          </svg>
+        </div>
+      </section>
+
+      <!-- ============ CAP 6 — JURISPRUDÊNCIA ============ -->
+      <section class="chapter" id="cap6">
+        <div class="chapter-header">
+          <div class="chapter-num">Capítulo 06</div>
+          <h2>Vetores <em>jurisprudenciais</em> aplicados</h2>
+          <p class="chapter-lead">
+            A jurisprudência não é repositório autônomo, mas camada de segurança
+            jurídica aplicada à decisão: aderir, autorregularizar, transacionar,
+            discutir, retificar, aguardar ou estruturar defesa.
+          </p>
+        </div>
+
+        <div class="juris-grid">
+          <div class="juris-card">
+            <div class="juris-tag">
+              Autorregularização e denúncia espontânea
+              <small>STJ · Súmula 360</small>
+            </div>
+            <div class="juris-text">
+              O benefício do art. 138 do CTN <strong>não se aplica</strong> a tributo
+              sujeito a lançamento por homologação regularmente declarado e pago a
+              destempo. Na prática, a autorregularização deve distinguir falta de
+              declaração, erro material, divergência documental e mero atraso de
+              tributo já confessado.
+            </div>
+          </div>
+
+          <div class="juris-card">
+            <div class="juris-tag">
+              Declarações fiscais como confissão
+              <small>STJ · Súmula 436</small>
+            </div>
+            <div class="juris-text">
+              A entrega de declaração pelo contribuinte reconhecendo débito fiscal
+              <strong>constitui o crédito tributário</strong> e dispensa nova
+              providência formal do Fisco. DCTF, EFD, GIA e equivalentes funcionam
+              como base crítica para classificação, cobrança, malha e transação.
+            </div>
+          </div>
+
+          <div class="juris-card">
+            <div class="juris-tag">
+              Transação tributária federal
+              <small>STJ · REsp 2.032.814/RS · Inf. 856/2025</small>
+            </div>
+            <div class="juris-text">
+              Na adesão à transação da Lei nº 13.988/2020, a <strong>cobrança de
+              honorários sem previsão</strong> na legislação ou no edital viola
+              segurança jurídica, boa-fé e proteção da confiança. O dossiê de adesão
+              deve conferir expressamente custos, renúncias, honorários, garantias e
+              efeitos sobre ações em curso.
+            </div>
+          </div>
+
+          <div class="juris-card">
+            <div class="juris-tag">
+              PERSE e benefícios setoriais
+              <small>STJ · Tema Repetitivo 1.283</small>
+            </div>
+            <div class="juris-text">
+              Para prestadores de serviços turísticos, exige-se <strong>prévia
+              inscrição no Cadastur</strong>; contribuinte optante pelo Simples
+              Nacional não pode cumular a alíquota zero do PERSE com o regime
+              simplificado. CNAE isolado não basta — é indispensável prova objetiva
+              de enquadramento setorial.
+            </div>
+          </div>
+
+          <div class="juris-card">
+            <div class="juris-tag">
+              Devedor contumaz e livre concorrência
+              <small>STF · ADI 7.513 + Súmulas 70, 323, 547</small>
+            </div>
+            <div class="juris-text">
+              Medidas contra devedor contumaz podem ser <strong>constitucionais
+              quando estruturadas como regime especial proporcional</strong>,
+              motivado e voltado à proteção da arrecadação e da concorrência leal.
+              Permanecem vedadas medidas que, sob aparência fiscal, inviabilizem
+              coercitivamente a atividade econômica.
+            </div>
+          </div>
+
+          <div class="juris-card">
+            <div class="juris-tag">
+              OEA, aduana e deveres instrumentais
+              <small>Jurisprudência superior consolidada</small>
+            </div>
+            <div class="juris-text">
+              A certificação OEA deve ser tratada como <strong>prova de governança
+              e controle</strong>, não como blindagem contra revisão aduaneira,
+              multa por informação inexata ou reclassificação fiscal. Exige-se
+              proporcionalidade entre erro formal, embaraço à fiscalização e dano
+              arrecadatório.
+            </div>
+          </div>
+
+          <div class="juris-card">
+            <div class="juris-tag">
+              RTC · CBS, IBS e Imposto Seletivo
+              <small>Em formação</small>
+            </div>
+            <div class="juris-text">
+              Não há jurisprudência consolidada sobre os novos tributos; a afetação
+              de temas envolvendo <strong>documentos eletrônicos, declaração fiscal
+              e constituição do crédito</strong> indica que NF-e, EFD, apuração
+              assistida e documentos correlatos ganharão centralidade probatória no
+              contencioso pós-Reforma.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CAP 7 — ANÁLISE CRÍTICA ============ -->
+      <section class="chapter" id="cap7">
+        <div class="chapter-header">
+          <div class="chapter-num">Capítulo 07</div>
+          <h2>Análise <em>crítica</em>: por que programas falham</h2>
+          <p class="chapter-lead">
+            A experiência brasileira demonstra que programas de conformidade e
+            regularização <strong>não se consolidam apenas por criação normativa</strong>.
+          </p>
+        </div>
+
+        <div class="prose">
+          <p>
+            A adesão depende da combinação entre incentivo econômico tangível,
+            segurança jurídica, simplicidade operacional, publicidade adequada,
+            previsibilidade de efeitos, estabilidade normativa e confiança mínima
+            de que o contribuinte não será prejudicado por revelar seus riscos ao
+            Fisco. Quando um desses elementos falha, o programa perde tração.
+          </p>
+        </div>
+
+        <table class="impact-table">
+          <thead>
+            <tr><th style="width:35%">Fator crítico</th><th>Motivo provável de baixa tração</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Programas muito restritos</td><td>Confia e Receita de Consenso têm alta sofisticação, mas público limitado. Baixa tração massificada decorre da exigência de maturidade fiscal elevada.</td></tr>
+            <tr><td>Iniciativas recentes</td><td>Aproxime e Receita Soluciona dependem de divulgação, padronização regional e demonstração de resultados práticos.</td></tr>
+            <tr><td>Regimes excepcionais temporários</td><td>DABIM, REARP e RERCT-Geral exigem análise econômica individual, prova robusta e aceitação de custo imediato.</td></tr>
+            <tr><td>Benefícios setoriais instáveis</td><td>PERSE ilustra o risco de mudanças legislativas, controvérsia de CNAE, habilitação e fiscalização retroativa.</td></tr>
+            <tr><td>Transações por edital</td><td>Quando descontos são pouco atrativos ou exigências de entrada/garantia são elevadas, contribuintes preferem aguardar novo edital.</td></tr>
+            <tr><td>Classificações reputacionais</td><td>Ratings podem enfrentar resistência por risco de exposição pública ou dificuldade de corrigir erro sistêmico.</td></tr>
+            <tr><td>Devedor contumaz</td><td>Muitos contribuintes somente tratam o risco após medida restritiva, quando o custo de regularização já se tornou mais alto.</td></tr>
+            <tr><td>Programas sobrepostos</td><td>Malha, autorregularização, denúncia espontânea, parcelamento e transação coexistem sem roteiro claro — sem triagem técnica, o contribuinte adere ao instrumento inadequado.</td></tr>
+          </tbody>
+        </table>
+
+        <div class="thesis">
+          <div class="thesis-label">Critério de oferta consultiva</div>
+          <p class="thesis-text">
+            O escritório deve oferecer esses programas como matriz de diagnóstico,
+            não como promessa genérica de benefício: primeiro classifica-se o risco,
+            depois identifica-se a fase do passivo, em seguida calcula-se o ganho
+            econômico e, por fim, decide-se entre defesa, autorregularização,
+            transação, adesão excepcional ou espera estratégica.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============ CAP 8 — ROTEIRO ============ -->
+      <section class="chapter" id="cap8">
+        <div class="chapter-header">
+          <div class="chapter-num">Capítulo 08</div>
+          <h2>Roteiro <em>prático</em> de implementação</h2>
+          <p class="chapter-lead">
+            Sete etapas para transformar a agenda de conformidade em metodologia
+            replicável dentro da empresa.
+          </p>
+        </div>
+
+        <div class="roadmap">
+          <div class="step">
+            <div class="step-content">
+              <h4>Inventário fiscal e patrimonial</h4>
+              <p>Mapear tributos, regimes, benefícios, passivos, certidões, fiscalizações, ativos patrimoniais, comércio exterior e exposição estadual/federal.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-content">
+              <h4>Diagnóstico de conformidade</h4>
+              <p>Avaliar obrigações principais/acessórias, qualidade de dados, rating, fornecedores, parametrização fiscal, créditos, pagamentos, declarações e risco de enquadramento como devedor contumaz.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-content">
+              <h4>Triagem de programas</h4>
+              <p>Classificar cada oportunidade por natureza: conformidade, autorregularização, transação, regularização excepcional, benefício setorial ou Reforma Tributária.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-content">
+              <h4>Simulação econômica</h4>
+              <p>Comparar custo de adesão, desconto, fluxo de caixa, impacto contábil, renúncia de teses e risco de autuação.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-content">
+              <h4>Decisão jurídica</h4>
+              <p>Definir se o caso exige defesa, consulta, consenso, autorregularização, transação, adesão excepcional, pedido de revisão ou não adesão.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-content">
+              <h4>Execução e governança</h4>
+              <p>Protocolar, aderir, pagar, retificar, documentar, monitorar obrigações e manter dossiê probatório.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-content">
+              <h4>Monitoramento pós-Reforma</h4>
+              <p>Acompanhar CBS/IBS, documentos fiscais, apuração assistida, classificação, alertas e novas janelas de regularização.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ============ CLOSING ============ -->
+    <section class="closing" id="closing">
+      <div class="closing-inner">
+        <div class="closing-eyebrow">Conclusão executiva · Como podemos ajudar</div>
+        <h2>Empresas que <em>antecipam</em> a transição ocuparão posição mais segura</h2>
+        <p>
+          Sanear passivos, corrigir divergências, documentar benefícios, controlar
+          fornecedores e acompanhar a classificação fiscal não é mais opcional.
+          É infraestrutura para operar no novo ambiente de IBS, CBS e Imposto Seletivo.
+        </p>
+
+        <div class="closing-deliverables">
+          <div class="deliv">
+            <div class="deliv-num">I</div>
+            <h5>Diagnóstico de maturidade fiscal e risco de Reforma</h5>
+            <p>Avaliação integrada de rating, dados, fornecedores, parametrização e exposição multifederativa.</p>
+          </div>
+          <div class="deliv">
+            <div class="deliv-num">II</div>
+            <h5>Plano de autorregularização e saneamento documental</h5>
+            <p>Resposta a malhas, retificações, denúncia espontânea, correção de cadastros e governança documental.</p>
+          </div>
+          <div class="deliv">
+            <div class="deliv-num">III</div>
+            <h5>Estratégia de regularização de passivos</h5>
+            <p>Simulações de transação federal e Acordo Paulista, análise de benefícios setoriais e janelas excepcionais.</p>
+          </div>
+        </div>
+
+        <div class="offices">
+          <div class="office">
+            <h6>Ribeirão Preto</h6>
+            <p>Av. Braz Olaia Acosta, 2100<br>Nova Aliança<br>(16) 3620-4545</p>
+          </div>
+          <div class="office">
+            <h6>Campinas</h6>
+            <p>Galleria Plaza · Av. José Bonifácio Coutinho Nogueira, 150 — sala 7<br>(19) 3578-1114</p>
+          </div>
+          <div class="office">
+            <h6>São Paulo</h6>
+            <p>Continental Square Faria Lima · R. Olimpíadas, 205 — sala 410<br>Vila Olímpia</p>
+          </div>
+          <div class="office">
+            <h6>Orlando · EUA</h6>
+            <p>7680 Universal Blvd, Suite 380<br>Florida 32819</p>
+          </div>
+        </div>
+
+        <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(184,153,104,.3);font-size:.8rem;color:rgba(250,246,238,.65);font-family:'Inter Tight',sans-serif;font-style:normal;">
+          atendimento@hmpx.com.br · www.hmpx.com.br<br>
+          <span style="opacity:.7">© HMPX Inteligência Fiscal e Tributária · Maio de 2026 · Estudo técnico-estratégico de uso interno e consultivo</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // Reading progress bar
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const scrolled = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    document.getElementById('progress').style.width = scrolled + '%';
+  });
+
+  // Active nav highlighting
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-list a');
+
+  function updateActive() {
+    let current = '';
+    sections.forEach(sec => {
+      const top = sec.offsetTop - 100;
+      if (window.scrollY >= top) current = sec.id;
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+    });
+  }
+  window.addEventListener('scroll', updateActive);
+
+  // Close mobile menu on link click
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      document.querySelector('.sidebar').classList.remove('open');
+    });
+  });
+
+  // Filter pills (capítulo 3)
+  const pills = document.querySelectorAll('.pill');
+  const programs = document.querySelectorAll('#federal-stack .program');
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      pills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      const f = pill.dataset.filter;
+      programs.forEach(prog => {
+        if (f === 'all' || prog.dataset.cat === f) {
+          prog.style.display = '';
+        } else {
+          prog.style.display = 'none';
+          prog.removeAttribute('open');
+        }
+      });
+    });
+  });
+
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.chapter, .thesis, .cat-card, .timeline-item, .program, .juris-card, .step, .alert-box, .chart-wrap, .deliv').forEach(el => {
+    el.classList.add('fade-in');
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
