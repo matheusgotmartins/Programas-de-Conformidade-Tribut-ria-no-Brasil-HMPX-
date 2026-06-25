@@ -83,37 +83,7 @@
   .sidebar::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px}
 
   .brand{
-    padding-bottom:1.5rem;
     border-bottom:1px solid rgba(255,255,255,.15);
-    margin-bottom:1.75rem;
-  }
-  .brand-mark{
-    display:inline-grid;
-    grid-template-columns:repeat(4,4px);
-    grid-template-rows:repeat(4,4px);
-    gap:2px;
-    margin-bottom:.75rem;
-  }
-  .brand-mark span{background:var(--cream);border-radius:1px}
-  .brand-mark span:nth-child(4),
-  .brand-mark span:nth-child(7),
-  .brand-mark span:nth-child(10),
-  .brand-mark span:nth-child(13){background:transparent}
-
-  .brand h1{
-    font-family:'Cormorant Garamond', serif;
-    font-size:1.75rem;
-    color:var(--cream);
-    font-weight:700;
-    letter-spacing:.02em;
-  }
-  .brand-tag{
-    font-size:.65rem;
-    letter-spacing:.25em;
-    text-transform:uppercase;
-    color:var(--gold);
-    margin-top:.25rem;
-    font-weight:500;
   }
 
   .nav-label{
@@ -972,6 +942,14 @@
   .pill:hover{border-color:var(--bordo);color:var(--bordo)}
   .pill.active{background:var(--bordo);color:var(--cream);border-color:var(--bordo)}
 
+  .logo_hmpx{
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+    margin: 0;
+    padding: 0;
+  }
+
   /* ========== MOBILE NAV TOGGLE ========== */
   .menu-btn{
     display:none;
@@ -1055,14 +1033,7 @@
   <!-- ============ SIDEBAR ============ -->
   <aside class="sidebar">
     <div class="brand">
-      <div class="brand-mark">
-        <span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span>
-      </div>
-      <h1>HMPX</h1>
-      <div class="brand-tag">Inteligência Fiscal</div>
+      <img src="logo_hmpx.png" class="logo_hmpx" alt="HMPX Inteligência Fiscal" />
     </div>
 
     <div class="nav-label">Conteúdo</div>
